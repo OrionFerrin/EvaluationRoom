@@ -1,5 +1,7 @@
 package com.example.cocheroom
 
-class CocheAppTheme(function: () -> Unit) {
+import androidx.compose.runtime.Composable
+
+class CocheAppTheme(function: @Composable () -> Unit) {
 
 }

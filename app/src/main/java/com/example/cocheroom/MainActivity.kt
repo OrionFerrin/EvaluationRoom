@@ -30,13 +30,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 @Composable
-fun MyApp(cocheViewModelFactory: CocheViewModel) {
+fun MyApp(cocheViewModel: CocheViewModel) {
     val navController: NavHostController = rememberNavController()
 
     // Pasamos el ViewModelFactory a las composables
     NavHost(navController = navController, startDestination = "pantalla_ingreso") {
         composable("pantalla_ingreso") {
-            EntryScreen(navController = navController, cocheViewModelFactory = CocheViewModelFactory)
+            EntryScreen(navController = navController, cocheViewModelFactory = cocheViewModelFactory)
         }
         composable("pantalla_consulta") {
             ListScreen(cocheViewModelFactory = cocheViewModelFactory)

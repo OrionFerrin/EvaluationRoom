@@ -9,4 +9,12 @@ class CocheRepository(private val cocheDao: CocheDao) {
     suspend fun insertar(coche: Coche) {
         cocheDao.insert(coche)
     }
+
+    fun getAllCoches(): Flow<List<Coche>> {
+
+    }
+
+    fun insert(coche: Coche.Coche) {
+        TODO("Not yet implemented")
+    }
 }

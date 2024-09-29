@@ -3,16 +3,18 @@ package com.example.cocheroom
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 
-class CocheViewModel(private val cocheDao: CocheRepository) : ViewModel() {
-
-    val allCoches: Flow<List<Coche>> = cocheDao.getAllCoches()
-
-    fun insertCoche(coche: Coche.Coche) {
+class CocheViewModel(private val repository: CocheRepository) : ViewModel() {
+    val coches: StateFlow<List<Coche>> = repository.coches
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    fun insertarCoche(coche: Coche) {
         viewModelScope.launch {
-            cocheDao.insert(coche)
+            repository.insertar(coche)
         }
     }
 }
