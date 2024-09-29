@@ -1,20 +1,15 @@
 package com.example.cocheroom
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -30,10 +25,10 @@ fun EntryScreen(
     val cocheViewModel: CocheViewModel = viewModel(factory = cocheViewModelFactory)
 
     // Variables para las propiedades
-    var propiedadUno by remember { mutableStateOf("") }
-    var propiedadDos by remember { mutableStateOf("") }
-    var propiedadTres by remember { mutableStateOf("") }
-    var propiedadCuatro by remember { mutableStateOf("") }
+    var marca by remember { mutableStateOf("") }
+    var modelo by remember { mutableStateOf("") }
+    var tipoCoche by remember { mutableStateOf("") }
+    var anio by remember { mutableStateOf("") }
 
     val scope = rememberCoroutineScope()
 
@@ -58,46 +53,40 @@ fun EntryScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campos de propiedades del libro
+        // Campos de atributos de los coches
         TextField(
-            value = propiedadUno,
-            onValueChange = { propiedadUno = it },
-            label = { Text("Propiedad Uno") },
-            modifier = Modifier.fillMaxWidth()
+            value = marca,
+            onValueChange = { marca = it },
+            label = { Text("Marca") }
         )
-
         TextField(
-            value = propiedadDos,
-            onValueChange = { propiedadDos = it },
-            label = { Text("Propiedad Dos") },
-            modifier = Modifier.fillMaxWidth()
+            value = modelo,
+            onValueChange = { modelo = it },
+            label = { Text("Modelo") }
         )
-
         TextField(
-            value = propiedadTres,
-            onValueChange = { propiedadTres = it },
-            label = { Text("Propiedad Tres") },
-            modifier = Modifier.fillMaxWidth()
+            value = tipoCoche,
+            onValueChange = { tipoCoche = it },
+            label = { Text("Tipo de Coche") } // Nuevo campo
         )
-
         TextField(
-            value = propiedadCuatro,
-            onValueChange = { propiedadCuatro = it },
-            label = { Text("Propiedad Cuatro") },
-            modifier = Modifier.fillMaxWidth()
+            value = anio,
+            onValueChange = { anio = it },
+            label = { Text("Año") }, // Nuevo campo
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón para crear la entrada del libro
+        // Botón para ingresar un coche
         Button(onClick = {
             scope.launch {
                 cocheViewModel.insertarCoche(
                     Coche(
-                        propiedadUno = propiedadUno,
-                        propiedadDos = propiedadDos,
-                        propiedadTres = propiedadTres,
-                        propiedadCuatro = propiedadCuatro
+                        modelo = modelo,
+                        marca = marca,
+                        tipoCoche = tipoCoche,
+                        anio = anio
                     )
                 )
             }
